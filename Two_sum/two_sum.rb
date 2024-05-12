@@ -4,11 +4,11 @@
 # @param {Integer} target
 # @return {Integer[]}
 def two_sum(nums, target)
-    nums.each_with_index do |num, index|
-        complement = target - num
-        complement_index = nums.index(complement)
-        return [index, complement_index] if complement_index && complement_index != index
-    end
+  nums.each_with_index do |num, index|
+    complement = target - num
+    complement_index = nums.index(complement)
+    return [index, complement_index] if complement_index && complement_index != index
+  end
 end
 
 # Get space-separated numbers from command-line input and convert them into an array of integers
