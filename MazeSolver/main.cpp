@@ -92,6 +92,13 @@ int main()
 
     for (int i = 0; i < n; i++)
     {
+        for (int j = 0; j < n; j++)
+            cout << solution[i][j] << " ";
+        cout << endl;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
         delete[] maze[i];
         delete[] solution[i];
     }
