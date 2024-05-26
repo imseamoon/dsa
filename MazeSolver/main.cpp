@@ -14,10 +14,10 @@ bool isValid(int **maze, int **solution, int x, int y, int numsSize)
         solution[x][y] == 0);
 }
 
-void searchLongestPath(int **maze, int **solution, int x, int y, int &maxLength, int currentLength, int numsSize)
+bool searchLongestPath(int **maze, int **solution, int x, int y, int &maxLength, int currentLength, int numsSize)
 {
     if (!isValid(maze, solution, x, y, numsSize))
-        return;
+        return false;
 
     solution[x][y] = 1;
 
@@ -27,19 +27,29 @@ void searchLongestPath(int **maze, int **solution, int x, int y, int &maxLength,
         {
             maxLength = currentLength;
         }
-        solution[x][y] = 0;
-        return;
+        return true;
     }
+
+    bool pathFound = false;
 
     for (int jump = 1; jump <= maze[x][y]; jump++)
     {
-        searchLongestPath(maze, solution, x, y + jump, maxLength, currentLength + 1, numsSize);
-        searchLongestPath(maze, solution, x, y - jump, maxLength, currentLength + 1, numsSize);
-        searchLongestPath(maze, solution, x + jump, y, maxLength, currentLength + 1, numsSize);
-        searchLongestPath(maze, solution, x - jump, y, maxLength, currentLength + 1, numsSize);
+        if (searchLongestPath(maze, solution, x, y + jump, maxLength, currentLength + 1, numsSize))
+            pathFound = true;
+        if (searchLongestPath(maze, solution, x, y - jump, maxLength, currentLength + 1, numsSize))
+            pathFound = true;
+        if (searchLongestPath(maze, solution, x + jump, y, maxLength, currentLength + 1, numsSize))
+            pathFound = true;
+        if (searchLongestPath(maze, solution, x - jump, y, maxLength, currentLength + 1, numsSize))
+            pathFound = true;
     }
 
-    solution[x][y] = 0;
+    if (!pathFound)
+    {
+        solution[x][y] = 0;
+    }
+
+    return pathFound;
 }
 
 int main()
@@ -79,9 +89,7 @@ int main()
 
     int maxLength = 0;
 
-    searchLongestPath(maze, solution, 0, 0, maxLength, 1, n);
-
-    if (maxLength > 0)
+    if (searchLongestPath(maze, solution, 0, 0, maxLength, 1, n))
     {
         cout << "Longest Path Length: " << maxLength << endl;
     }
