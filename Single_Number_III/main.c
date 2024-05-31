@@ -29,3 +29,22 @@ int* singleNumber(int* nums, int numsSize, int* returnSize) {
 
     return result;
 }
+
+
+int main(int argv, char*argc[])
+{
+	int array[] = {1, 1, 2, 2, 3 ,3,4, 5};
+
+	int returnSize;
+
+	int *result = singleNumber(array, sizeof(array)/sizeof(array[0]), &returnSize);
+
+	printf("%d, %d", result[0], result[1]);
+
+	return 0;
+}
+
+
+
+
+
